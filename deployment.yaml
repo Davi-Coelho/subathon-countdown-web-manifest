@@ -1,0 +1,72 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: subathontimer-davicoelho-com
+  namespace: default
+spec:
+  secretName: subathontimer-davicoelho-com-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "subathontimer.davicoelho.com"
+  dnsNames:
+  - "subathontimer.davicoelho.com"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subathon-timer
+  namespace: default
+  labels:
+    app: subathon-timer
+spec:
+  replicas: 3
+  strategy: 
+    type: Recreate
+  selector:
+    matchLabels:
+      app: subathon-timer
+  template:
+    metadata:
+      labels:
+        app: subathon-timer
+    spec:
+      containers:
+      - image: registry.davicoelho.com/subathon-timer/timer:16
+        name: subathon-timer
+      imagePullSecrets:
+      - name: subathon-registry-pull-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: subathon-timer
+  namespace: default
+spec:
+  selector:
+    app: subathon-timer
+  ports:
+  - name: http
+    targetPort: 80
+    port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: subathon-timer
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`subathontimer.davicoelho.com`)
+      kind: Rule
+      priority: 10
+      services:
+        - name: subathon-timer
+          port: 80
+  tls:
+    secretName: subathontimer-davicoelho-com-tls
