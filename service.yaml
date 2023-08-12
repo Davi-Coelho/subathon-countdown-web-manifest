@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: subathon-timer
+  namespace: default
+spec:
+  selector:
+    app: subathon-timer
+  ports:
+  - name: http
+    targetPort: 80
+    port: 80

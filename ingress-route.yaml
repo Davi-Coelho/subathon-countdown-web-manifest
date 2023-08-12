@@ -1,0 +1,20 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: subathon-timer
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`subathontimer.davicoelho.com`)
+      kind: Rule
+      priority: 10
+      services:
+        - name: subathon-timer
+          port: 80
+  tls:
+    secretName: subathontimer-davicoelho-com-tls

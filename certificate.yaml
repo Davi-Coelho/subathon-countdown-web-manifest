@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: subathontimer-davicoelho-com
+  namespace: default
+spec:
+  secretName: subathontimer-davicoelho-com-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "subathontimer.davicoelho.com"
+  dnsNames:
+  - "subathontimer.davicoelho.com"
