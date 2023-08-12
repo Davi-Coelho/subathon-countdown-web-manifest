@@ -22,4 +22,4 @@ spec:
       - image: registry.davicoelho.com/subathon-timer/timer:20
         name: subathon-timer
       imagePullSecrets:
-      - name: subathon-registry-pull-secret
+      - name: registry-secret
