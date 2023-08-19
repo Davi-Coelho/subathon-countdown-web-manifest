@@ -19,7 +19,7 @@ spec:
         app: subathon-timer
     spec:
       containers:
-      - image: registry.davicoelho.com/subathon-timer/timer:30
+      - image: registry.davicoelho.com/subathon-timer/timer:31
         name: subathon-timer
       imagePullSecrets:
       - name: registry-secret
