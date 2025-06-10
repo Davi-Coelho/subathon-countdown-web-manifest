@@ -6,7 +6,7 @@ node {
     stage('Update GIT') {
         script {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                sshagent (credentialsId: 'github-ssh') {
                     sh "git config user.email davi.cmbarreto@gmail.com"
                     sh "git config user.name Davi-Coelho"
                     sh "cat deployment.yaml"
