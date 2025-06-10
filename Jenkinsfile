@@ -14,6 +14,7 @@ node {
                     sh "cat deployment.yaml"
                     sh "git add ."
                     sh "git commit -m 'Done by Jenkins Job subathontimer-build: ${env.BUILD_NUMBER}'"
+                    sh "git remote set-url origin git@github.com:Davi-Coelho/subathon-countdown-web-manifest.git"
                     sh "git push origin HEAD:main"
                 }
             }
