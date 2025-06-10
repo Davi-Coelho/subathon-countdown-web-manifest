@@ -1,11 +1,8 @@
 node {
-    stage('Clone repository') {
-        checkout scm
-    }
-
     stage('Update GIT') {
         script {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                checkout scm
                 withCredentials([sshUserPrivateKey(credentialsId: "github-ssh", keyFileVariable: 'key')]) {
                     sh "git config user.email davi.cmbarreto@gmail.com"
                     sh "git config user.name Davi-Coelho"
