@@ -14,7 +14,7 @@ node {
                     sh "cat deployment.yaml"
                     sh "git add ."
                     sh "git commit -m 'Done by Jenkins Job subathontimer-build: ${env.BUILD_NUMBER}'"
-                    sh "git push"
+                    sh "git push origin HEAD:main"
                 }
             }
         }
