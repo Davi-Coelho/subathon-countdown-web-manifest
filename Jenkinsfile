@@ -2,8 +2,10 @@ node {
     stage('Update GIT') {
         script {
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                checkout scm
                 withCredentials([sshUserPrivateKey(credentialsId: "github-ssh", keyFileVariable: 'key')]) {
+                    git url: "git@github.com:Davi-Coelho/subathon-countdown-web-manifest.git",
+                        credentialsId: 'github-ssh',
+                        branch: 'main'
                     sh "git config user.email davi.cmbarreto@gmail.com"
                     sh "git config user.name Davi-Coelho"
                     sh "cat deployment.yaml"
@@ -11,8 +13,7 @@ node {
                     sh "cat deployment.yaml"
                     sh "git add ."
                     sh "git commit -m 'Done by Jenkins Job subathontimer-build: ${env.BUILD_NUMBER}'"
-                    sh "git remote set-url origin git@github.com:Davi-Coelho/subathon-countdown-web-manifest.git"
-                    sh 'GIT_SSH_COMMAND = "ssh -i $key" git push origin HEAD:main'
+                    sh 'git push origin main'
                 }
             }
         }
