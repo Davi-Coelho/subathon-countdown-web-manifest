@@ -19,7 +19,7 @@ spec:
         app: subathon-timer
     spec:
       containers:
-      - image: registry.davicoelho.com/subathon-timer/timer:51
+      - image: registry.davicoelho.com/subathon-timer/timer:52
         name: subathon-timer
         resources:
           limits:
