@@ -7,8 +7,8 @@ metadata:
 spec:
   secretName: subathontimer-davicoelho-com-tls
   issuerRef:
-    name: letsencrypt-production
+    name: letsencrypt-dns-production
     kind: ClusterIssuer
   commonName: "subathontimer.davicoelho.com"
   dnsNames:
-  - "subathontimer.davicoelho.com"
+    - "subathontimer.davicoelho.com"
